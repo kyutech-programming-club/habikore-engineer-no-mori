@@ -21,11 +21,10 @@ jobs:
         with:
           node-version: "16.x"
 
-      - name: yarn install, build, and test
+      - name: yarn install and build
         run: |
           yarn install
           yarn build
-          yarn test
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
