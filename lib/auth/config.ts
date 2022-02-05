@@ -3,8 +3,8 @@ import { Configuration } from '@azure/msal-browser';
 export const msalConfig: Configuration = {
   auth: {
     clientId: '3e123950-32b5-466b-870a-1bfcd38d4773',
-    authority: 'https://habimori.b2clogin.com/habimori.onmicrosoft.com/signin',
-    knownAuthorities: ['habimori.b2clogin.com'],
+    authority: 'https://habimorib2c.b2clogin.com/habimorib2c.onmicrosoft.com/B2C_1_signin',
+    knownAuthorities: ['habimorib2c.b2clogin.com'],
     redirectUri: '/',
     postLogoutRedirectUri: '/',
   },
