@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import { update_user } from "../db/cosmos";
 
 type Card = {
   index: number;
@@ -78,6 +79,7 @@ const Canvas: React.VFC = () => {
           </div>
         ))}
       </div>
+      <button onClick={update_user()}>写真を撮ろう！</button>
     </div>
   );
 };
