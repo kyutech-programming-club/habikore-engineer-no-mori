@@ -17,9 +17,10 @@ type User = {
   totalPoint: number;
   usedPoint: number;
   position: Card[] | null;
+  id: string;
 };
 
-const userState = atom<User>({
+export const userState = atom<User>({
   key: "userState",
   default: {
     b2c_id: "",
@@ -28,6 +29,7 @@ const userState = atom<User>({
     totalPoint: 0,
     usedPoint: 0,
     position: null,
+    id: ""
   },
 });
 
