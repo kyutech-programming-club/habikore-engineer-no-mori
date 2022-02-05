@@ -12,18 +12,18 @@ module.exports = async function (context, req) {
         console.log('err:', err);
     });
 
-    allPoint1d = allPoint.reduce( (newArr, elem) => {
+    allPoint1d = allPoint.contributions.reduce( (newArr, elem) => {
         return newArr.concat(elem)
-      }, [])
+      }, []);
 
     var date = new Date();
-    console.log(allPoint1d);
 
     let point = 0
-    for(let i=364-date.getDate(); i < 364; i++){
+    for(let i=371-date.getDate(); i < 370; i++){
+        console.log(allPoint1d[i]);
         point += allPoint1d[i].contributionCount;
     }
-    console.log(point)
+    console.log(point);
 
     context.res = {
         status: 200,
