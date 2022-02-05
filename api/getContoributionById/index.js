@@ -1,13 +1,19 @@
-module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+const axios = require('axios');
 
-    const name = (req.query.name || (req.body && req.body.name));
-    const responseMessage = name
-        ? "Hello, " + name + ". This HTTP triggered function executed successfully."
-        : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
+module.exports = async function (context, req) {
+    const githubId = req.query.githubId;
+    contribution = await axios
+    .get('https://github-contributions-api.deno.dev/' + githubId + '.json')
+    .then(response => {
+        console.dir('response body:', response.data);
+        return response.data
+    })
+    .catch(err => {
+        console.log('err:', err);
+    });
 
     context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
+        status: 200,
+        body: contribution,
     };
 }
