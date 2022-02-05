@@ -19,14 +19,22 @@ module.exports = async function (context, req) {
     var date = new Date();
 
     let point = 0
+    let count = 0;
     for(let i=371-date.getDate(); i < 370; i++){
-        console.log(allPoint1d[i]);
+        //console.log(allPoint1d[i]);
         point += allPoint1d[i].contributionCount;
+        if(allPoint1d[i].contributionCount != 0){
+            count ++;
+        }
     }
     console.log(point);
+    console.log(count);
 
     context.res = {
         status: 200,
-        body: point,
+        body: {
+            "point" : point,
+            "count" : count,
+        },
     };
 }
