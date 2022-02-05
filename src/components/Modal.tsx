@@ -1,8 +1,12 @@
+import Image from "next/image";
 import { useRecoilState } from "recoil";
-import { openState } from "../atom/atoms";
+import { clickedImageState, openState } from "../atom/atoms";
+
+const images = ["/1.png", "/2.png", "/3.png", "/4.png", "/5.png", "/6.png"];
 
 const Modal: React.VFC = () => {
   const [showModal, setShowModal] = useRecoilState(openState);
+  const [clickedImage, setClickedImage] = useRecoilState(clickedImageState);
 
   return (
     <>
@@ -24,14 +28,21 @@ const Modal: React.VFC = () => {
                 </button>
               </div>
               {/*body*/}
-              <div className="relative p-6 flex-auto">
-                <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                  I always felt like I could do anything. That’s the main thing
-                  people are controlled by! Thoughts- their perception of
-                  themselves! Theyre slowed down by their perception of
-                  themselves. If youre taught you can’t do anything, you won’t
-                  do anything. I wastaught I could do everything.
-                </p>
+              <div className="flex justify-center items-center relative p-6 flex-auto">
+                {images.map((image) => (
+                  <Image
+                    alt="pic"
+                    key={image}
+                    src={image}
+                    width={148}
+                    height={148}
+                    onClick={() => {
+                      setClickedImage(image);
+                      console.log("clicked: " + image);
+                      setShowModal((flag) => !flag);
+                    }}
+                  />
+                ))}
               </div>
               {/*footer*/}
               <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">

@@ -18,3 +18,8 @@ export const userState = atom<User>({
     id: "",
   },
 });
+
+export const clickedImageState = atom<string>({
+  key: "clickedImageState",
+  default: "",
+});
