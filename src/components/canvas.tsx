@@ -18,6 +18,7 @@ export type User = {
   totalPoint: number;
   usedPoint: number;
   position: Card[] | null;
+  id: string;
 };
 
 const Canvas: React.VFC = () => {

@@ -15,5 +15,6 @@ export const userState = atom<User>({
     totalPoint: 0,
     usedPoint: 0,
     position: null,
+    id: "",
   },
 });
