@@ -17,7 +17,7 @@ const Home: NextPage = () => {
         <p>
           こんにちは、{user?.familyName} {user?.givenName} さん
         </p>
-        <p>メールアドレス：{user?.email}</p>
+        {/* <p>メールアドレス：{user?.email}</p> */}
       </AuthenticatedTemplate>
     </>
   );

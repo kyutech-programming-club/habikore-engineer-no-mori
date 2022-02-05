@@ -21,7 +21,7 @@ export interface User {
   sub: string;
   familyName: string;
   givenName: string;
-  email: string;
+//   email: string;
 }
 
 const useCurrentUser = (): User | null | undefined => {
@@ -32,7 +32,7 @@ const useCurrentUser = (): User | null | undefined => {
       sub: account.idTokenClaims?.sub,
       familyName: account.idTokenClaims?.family_name,
       givenName: account.idTokenClaims?.given_name,
-      email: account.idTokenClaims?.emails[0],
+    //   email: account.idTokenClaims?.emails[0],
     };
     return user;
   }
