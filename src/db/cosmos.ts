@@ -8,7 +8,7 @@ const config = {
   partitionKey: { kind: "Hash", paths: ["/b2c_id"] }
 };
   
-export default async function create_item(b2c_id: string, name: string, state: number, commit: number, position: {x: number, y: number, url: string}[] ): Promise<void> {
+export async function create_item(b2c_id: string, name: string, state: number, commit: number, position: {x: number, y: number, url: string}[] ): Promise<void> {
   const { endpoint, key, databaseId, containerId,} = config;
   const client = new CosmosClient({ endpoint, key });
   const database = client.database(databaseId);
@@ -22,4 +22,3 @@ export default async function create_item(b2c_id: string, name: string, state: n
   };
   await container.items.create(newItem);
 }
-  
