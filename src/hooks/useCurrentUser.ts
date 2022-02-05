@@ -1,5 +1,6 @@
 import { AccountInfo } from '@azure/msal-browser';
 import { useMsal } from '@azure/msal-react';
+import create_item from "../db/cosmos";
 
 interface Account extends AccountInfo {
   idTokenClaims: {
@@ -14,6 +15,7 @@ interface Account extends AccountInfo {
     sub: string;
     tfp: string;
     ver: string;
+    name: string;
     newUser: boolean;
   };
 }
@@ -33,6 +35,7 @@ const useCurrentUser = (): User | null | undefined => {
       familyName: account.idTokenClaims?.family_name,
       givenName: account.idTokenClaims?.given_name,
     };
+    
     return user;
   }
   return null;
