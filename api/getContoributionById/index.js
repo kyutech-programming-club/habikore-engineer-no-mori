@@ -2,39 +2,36 @@ const axios = require('axios');
 
 module.exports = async function (context, req) {
     const githubId = req.query.githubId;
-    allPoint = await axios
+    let res = await axios
     .get('https://github-contributions-api.deno.dev/' + githubId + '.json')
     .then(response => {
-        console.dir('response body:', response.data);
+        console.log('response body:', response.data);
         return response.data
     })
     .catch(err => {
         console.log('err:', err);
     });
 
-    allPoint1d = allPoint.contributions.reduce( (newArr, elem) => {
-        return newArr.concat(elem)
-      }, []);
+    let flatRes = res.contributions.flat(1);
 
-    var date = new Date();
+    const today =  new Date();
+    let targetDays = flatRes.slice(-today.getDate(), -1);
+    console.log(targetDays);
 
-    let point = 0
-    let count = 0;
-    for(let i=371-date.getDate(); i < 370; i++){
-        //console.log(allPoint1d[i]);
-        point += allPoint1d[i].contributionCount;
-        if(allPoint1d[i].contributionCount != 0){
-            count ++;
+    let point = 0;
+    let state = 0;
+    for (let day of targetDays) {
+        point += day.contributionCount;
+        if (day.contributionCount) {
+            state ++;
         }
     }
-    console.log(point);
-    console.log(count);
 
     context.res = {
         status: 200,
         body: {
-            "point" : point,
-            "count" : count,
+            "point": point,
+            "state": state,
         },
     };
 }
