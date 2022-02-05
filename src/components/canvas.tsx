@@ -1,8 +1,45 @@
 import { useState } from "react";
 import Image from "next/image";
 
+type Card = {
+  index: number;
+  url: string;
+  x: number;
+  y: number;
+};
+
 const Canvas: React.VFC = () => {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
+  // すべてのステッカーの配列
+  const [cards, setCards] = useState<Card[]>([]);
+  // 追加するカードのインデックスをインクリメントする関数
+  const [initialIndex, setInitialIndex] = useState(0);
+  // カードを追加する関数
+  const addCard = (url: string) => {
+    setCards([
+      ...cards,
+      {
+        index: initialIndex,
+        url,
+        x: Math.floor(Math.random() * (200 - 80) + 80),
+        y: Math.floor(Math.random() * (200 - 80) + 80),
+      },
+    ]);
+    setInitialIndex(initialIndex + 1);
+  };
+  // 特定番目のカードの座標を更新する
+  const update = (index: number, x: number, y: number) => {
+    const specificCard = cards[index];
+    specificCard.x = x;
+    specificCard.y = y;
+  };
+  // ドロップされた時の位置を保持する
+  const [droppedPosition, setDroppedPosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+  // ドラッグしているオブジェクトのインデックス
+  const [draggingIndex, setDraggingIdex] = useState<number>(0);
+
   return (
     <div
       style={{
@@ -11,14 +48,25 @@ const Canvas: React.VFC = () => {
         position: "relative",
         backgroundImage: "url(/sougen.jpg)",
       }}
-      onDrop={(e) => setPos({ x: e.clientX, y: e.clientY })}
+      onDrop={(e) => update(draggingIndex, e.clientX, e.clientY)}
       onDragOver={(e) => e.preventDefault()} // enable onDrop event
     >
-      <div
-        style={{ position: "absolute", top: pos.y + "px", left: pos.x + "px" }}
-        draggable={true}
-      >
-        <Image src="/bird.png" alt="bird" width={128} height={128} />
+      <button onClick={() => addCard("ahiahi")}>Add card!</button>
+      <div>
+        {cards.map((card) => (
+          <div
+            key={card.index}
+            style={{
+              position: "absolute",
+              top: String(card.y) + "px",
+              left: String(card.x) + "px",
+            }}
+            onDrag={() => setDraggingIdex(card.index)}
+            draggable={true}
+          >
+            <Image src="/bird.png" alt="bird" width={128} height={128} />
+          </div>
+        ))}
       </div>
     </div>
   );
