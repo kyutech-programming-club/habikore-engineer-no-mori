@@ -8,17 +8,33 @@ const config = {
   partitionKey: { kind: "Hash", paths: ["/b2c_id"] }
 };
   
-export async function create_item(b2c_id: string, name: string, state: number, commit: number, position: {x: number, y: number, url: string}[] ): Promise<void> {
+export async function create_user(b2c_id: string, name: string, state: number, commit: number, position: {x: number, y: number, url: string}[] ): Promise<void> {
   const { endpoint, key, databaseId, containerId,} = config;
   const client = new CosmosClient({ endpoint, key });
   const database = client.database(databaseId);
   const container = database.container(containerId);
-  const newItem = {
+  const newUser = {
     b2c_id: b2c_id,
     name: name,
     state: state,
     commit: commit,
     position: position,
   };
-  await container.items.create(newItem);
+  await container.items.create(newUser);
+}
+
+export async function update_user(b2c_id: string, name: string, state: number, commit: number, position: {x: number, y: number, url: string}[], id: string ): Promise<void> {
+  const { endpoint, key, databaseId, containerId,} = config;
+  const client = new CosmosClient({ endpoint, key });
+  const database = client.database(databaseId);
+  const container = database.container(containerId);
+  const newUser = {
+    b2c_id: b2c_id,
+    name: name,
+    state: state,
+    commit: commit,
+    position: position,
+    id: id,
+  };
+  await container.item(id, b2c_id).replace(newUser);
 }
