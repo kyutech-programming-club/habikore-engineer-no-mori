@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Image from "next/image";
-import { update_user } from "../db/cosmos";
-import { atom, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
+import Modal from "./Modal";
+import { openState, userState } from "../atom/atoms";
 
 type Card = {
   index: number;
@@ -10,7 +11,7 @@ type Card = {
   y: number;
 };
 
-type User = {
+export type User = {
   b2c_id: string;
   name: string;
   state: number;
@@ -18,18 +19,6 @@ type User = {
   usedPoint: number;
   position: Card[] | null;
 };
-
-const userState = atom<User>({
-  key: "userState",
-  default: {
-    b2c_id: "",
-    name: "",
-    state: 0,
-    totalPoint: 0,
-    usedPoint: 0,
-    position: null,
-  },
-});
 
 const Canvas: React.VFC = () => {
   // すべてのステッカーの配列
@@ -59,7 +48,12 @@ const Canvas: React.VFC = () => {
   const [draggingIndex, setDraggingIdex] = useState<number>(0);
   const [trigger, setTrigger] = useState(0);
 
+  const [showModal, setShowModal] = useRecoilState(openState);
+  const toggle = () => {};
+
   const [user, setUser] = useRecoilState(userState);
+
+  console.log(showModal);
 
   return (
     <div
@@ -99,6 +93,10 @@ const Canvas: React.VFC = () => {
         ))}
       </div>
       <button>写真を撮ろう！</button>
+      <button onClick={() => setShowModal((flag) => !flag)}>
+        住人を招待する
+      </button>
+      {showModal && <Modal />}
     </div>
   );
 };
