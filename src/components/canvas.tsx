@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { update_user } from "../db/cosmos";
+import { atom, useRecoilState } from "recoil";
 
 type Card = {
   index: number;
@@ -8,6 +9,27 @@ type Card = {
   x: number;
   y: number;
 };
+
+type User = {
+  b2c_id: string;
+  name: string;
+  state: number;
+  totalPoint: number;
+  usedPoint: number;
+  position: Card[] | null;
+};
+
+const userState = atom<User>({
+  key: "userState",
+  default: {
+    b2c_id: "",
+    name: "",
+    state: 0,
+    totalPoint: 0,
+    usedPoint: 0,
+    position: null,
+  },
+});
 
 const Canvas: React.VFC = () => {
   // すべてのステッカーの配列
@@ -33,14 +55,11 @@ const Canvas: React.VFC = () => {
     specificCard.x = x;
     specificCard.y = y;
   };
-  // ドロップされた時の位置を保持する
-  const [droppedPosition, setDroppedPosition] = useState<{
-    x: number;
-    y: number;
-  } | null>(null);
   // ドラッグしているオブジェクトのインデックス
   const [draggingIndex, setDraggingIdex] = useState<number>(0);
   const [trigger, setTrigger] = useState(0);
+
+  const [user, setUser] = useRecoilState(userState);
 
   return (
     <div
@@ -79,7 +98,7 @@ const Canvas: React.VFC = () => {
           </div>
         ))}
       </div>
-      <button onClick={update_user()}>写真を撮ろう！</button>
+      <button>写真を撮ろう！</button>
     </div>
   );
 };
