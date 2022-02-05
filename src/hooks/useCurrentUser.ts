@@ -14,6 +14,7 @@ interface Account extends AccountInfo {
     sub: string;
     tfp: string;
     ver: string;
+    newUser: boolean;
   };
 }
 
