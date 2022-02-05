@@ -39,6 +39,7 @@ const Canvas: React.VFC = () => {
   } | null>(null);
   // ドラッグしているオブジェクトのインデックス
   const [draggingIndex, setDraggingIdex] = useState<number>(0);
+  const [trigger, setTrigger] = useState(0);
 
   return (
     <div
@@ -48,7 +49,13 @@ const Canvas: React.VFC = () => {
         position: "relative",
         backgroundImage: "url(/sougen.jpg)",
       }}
-      onDrop={(e) => update(draggingIndex, e.clientX, e.clientY)}
+      onDrop={(e) => {
+        update(draggingIndex, e.clientX, e.clientY);
+        setTrigger((initialTrigger) => {
+          return initialTrigger + 1;
+        });
+        console.log(draggingIndex);
+      }}
       onDragOver={(e) => e.preventDefault()} // enable onDrop event
     >
       <button onClick={() => addCard("ahiahi")}>Add card!</button>
@@ -61,7 +68,10 @@ const Canvas: React.VFC = () => {
               top: String(card.y) + "px",
               left: String(card.x) + "px",
             }}
-            onDrag={() => setDraggingIdex(card.index)}
+            onDrag={() => {
+              setDraggingIdex(card.index);
+              console.log(card.index);
+            }}
             draggable={true}
           >
             <Image src="/bird.png" alt="bird" width={128} height={128} />
