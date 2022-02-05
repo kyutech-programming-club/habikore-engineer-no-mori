@@ -1,7 +1,7 @@
 import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import { msalConfig } from "../lib/auth/config";
-import "../styles/globals.css";
+import "tailwindcss/tailwind.css";
 import type { AppProps } from "next/app";
 import React from "react";
 import {
