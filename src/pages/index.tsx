@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import Canvas from "../components/canvas";
 import SigninBtn from '../components/SigninBtn';
 import useCurrentUser from '../hooks/useCurrentUser';
-import { create_item } from "../db/cosmos";
 
 const Home: NextPage = () => {
   const user = useCurrentUser();
