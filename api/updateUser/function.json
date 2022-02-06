@@ -14,6 +14,31 @@
       "type": "http",
       "direction": "out",
       "name": "res"
+    },
+    {
+      "type": "cosmosDB",
+      "name": "user",
+      "databaseName": "HabimoriDB",
+      "collectionName": "Users",
+      "connectionStringSetting": "CosmosDBConnection",
+      "direction": "in",
+      "id": "{Query.id}",
+      "partitionKey": "{Query.partition}"
+    },
+    {
+    
+    "name": "newuser",
+    "type": "cosmosDB",
+    "databaseName": "HabimoriDB",
+    "collectionName": "Users",
+    "createIfNotExists": true,
+    "connectionStringSetting": "CosmosDBConnection",
+    "direction": "out"
     }
+
+
+
   ]
+
+  
 }
