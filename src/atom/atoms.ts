@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { User } from "../components/canvas";
+import { Card, User } from "../components/canvas";
 
 export const openState = atom<boolean>({
   key: "openState",
@@ -17,4 +17,23 @@ export const userState = atom<User>({
     position: null,
     id: "",
   },
+});
+
+export const clickedImageState = atom<{ url: string; isImage: boolean }>({
+  key: "clickedImageState",
+  default: {
+    url: "",
+    isImage: false,
+  },
+});
+
+export const cardsState = atom<Card[]>({
+  key: "cardsState",
+  default: [],
+  dangerouslyAllowMutability: true,
+});
+
+export const indexState = atom<number>({
+  key: "indexState",
+  default: 0,
 });
