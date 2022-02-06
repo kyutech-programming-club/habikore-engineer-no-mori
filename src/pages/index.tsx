@@ -3,31 +3,21 @@ import Canvas from "../components/canvas";
 import Header from "../components/Header";
 import Modal from "../components/Modal";
 import SigninBtn from "../components/SigninBtn";
-<<<<<<< HEAD
 
-const Home: NextPage = () => {
-  return (
-    <>
-      <Header />
-      {/* <h1>React & Next.js と AADB2C の連携</h1> */}
-      {/* <SigninBtn /> */}
-      {/* <div>
-=======
 import { get_user } from "../db/cosmos";
 import useCurrentUser from "../hooks/useCurrentUser";
 
 const Home: NextPage = () => {
   const user = useCurrentUser();
-  get_user()
+  get_user();
   return (
     <>
       <h1>React & Next.js と AADB2C の連携</h1>
       <SigninBtn />
-      <button onClick={async() => await get_user()}>取得</button>
-      <p>
->>>>>>> c79537a090ad579ddb10dc92e13b34f1c7bc1b98
+      <button onClick={async () => await get_user()}>取得</button>
+      <div>
         こんにちは、{user?.familyName} {user?.givenName} さん
-      </div> */}
+      </div>
       <Canvas />
     </>
   );
