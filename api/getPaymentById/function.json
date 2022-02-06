@@ -14,16 +14,6 @@
       "type": "http",
       "direction": "out",
       "name": "res"
-    },
-    {
-      "type": "cosmosDB",
-      "name": "user",
-      "databaseName": "HabimoriDB",
-      "collectionName": "Users",
-      "connectionStringSetting": "CosmosDBConnection",
-      "direction": "in",
-      "id": "{id}",
-      "partitionKey": "{Query.partition}"
     }
   ]
 }
