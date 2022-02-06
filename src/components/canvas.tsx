@@ -61,47 +61,48 @@ const Canvas: React.VFC = () => {
   const [image, setImage] = useRecoilState(clickedImageState);
 
   return (
-    <div
-      style={{
-        width: "1000px",
-        height: "1000px",
-        position: "relative",
-        backgroundImage: "url(/sougen.jpg)",
-      }}
-      onDrop={(e) => {
-        update(draggingIndex, e.clientX, e.clientY);
-        setTrigger((initialTrigger) => {
-          return initialTrigger + 1;
-        });
-        console.log(draggingIndex);
-      }}
-      onDragOver={(e) => e.preventDefault()} // enable onDrop event
-    >
-      {/* <button onClick={() => addCard("ahiahi")}>Add card!</button> */}
-      <div>
-        {cards.map((card) => (
-          <div
-            key={card.index}
-            style={{
-              position: "absolute",
-              top: String(card.y) + "px",
-              left: String(card.x) + "px",
-            }}
-            onDrag={() => {
-              setDraggingIdex(card.index);
-              console.log(card.index);
-            }}
-            draggable={true}
-          >
-            <Image src={card.url} alt="bird" width={128} height={128} />
-          </div>
-        ))}
+    <div>
+      <div
+        className="h-screen w-screen"
+        style={{
+          position: "relative",
+          backgroundImage: "url(/sougen.jpg)",
+        }}
+        onDrop={(e) => {
+          update(draggingIndex, e.clientX, e.clientY);
+          setTrigger((initialTrigger) => {
+            return initialTrigger + 1;
+          });
+          console.log(draggingIndex);
+        }}
+        onDragOver={(e) => e.preventDefault()} // enable onDrop event
+      >
+        {/* <button onClick={() => addCard("ahiahi")}>Add card!</button> */}
+        <div>
+          {cards.map((card) => (
+            <div
+              key={card.index}
+              style={{
+                position: "absolute",
+                top: String(card.y) + "px",
+                left: String(card.x) + "px",
+              }}
+              onDrag={() => {
+                setDraggingIdex(card.index);
+                console.log(card.index);
+              }}
+              draggable={true}
+            >
+              <Image src={card.url} alt="bird" width={128} height={128} />
+            </div>
+          ))}
+        </div>
+        <button>写真を撮ろう！</button>
+        <button onClick={() => setShowModal((flag) => !flag)}>
+          住人を招待する
+        </button>
+        {showModal && <Modal />}
       </div>
-      <button>写真を撮ろう！</button>
-      <button onClick={() => setShowModal((flag) => !flag)}>
-        住人を招待する
-      </button>
-      {showModal && <Modal />}
     </div>
   );
 };
