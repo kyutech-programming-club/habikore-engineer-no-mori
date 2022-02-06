@@ -1,12 +1,31 @@
 import Image from "next/image";
-import { useRecoilState } from "recoil";
-import { clickedImageState, openState } from "../atom/atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  cardsState,
+  clickedImageState,
+  indexState,
+  openState,
+} from "../atom/atoms";
 
 const images = ["/1.png", "/2.png", "/3.png", "/4.png", "/5.png", "/6.png"];
 
 const Modal: React.VFC = () => {
   const [showModal, setShowModal] = useRecoilState(openState);
-  const [clickedImage, setClickedImage] = useRecoilState(clickedImageState);
+  const setClickedImage = useSetRecoilState(clickedImageState);
+  const [cards, setCards] = useRecoilState(cardsState);
+  const [initialIndex, setInitialIndex] = useRecoilState(indexState);
+  const addCard = (url: string) => {
+    setCards([
+      ...cards,
+      {
+        index: initialIndex,
+        url,
+        x: Math.floor(Math.random() * (200 - 80) + 80),
+        y: Math.floor(Math.random() * (200 - 80) + 80),
+      },
+    ]);
+    setInitialIndex(initialIndex + 1);
+  };
 
   return (
     <>
@@ -37,8 +56,8 @@ const Modal: React.VFC = () => {
                     width={148}
                     height={148}
                     onClick={() => {
-                      setClickedImage(image);
-                      console.log("clicked: " + image);
+                      setClickedImage({ url: image, isImage: true });
+                      addCard(image);
                       setShowModal((flag) => !flag);
                     }}
                   />
@@ -49,7 +68,10 @@ const Modal: React.VFC = () => {
                 <button
                   className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button"
-                  onClick={() => setShowModal((flag) => !flag)}
+                  onClick={() => {
+                    setClickedImage({ url: "", isImage: false });
+                    setShowModal((flag) => !flag);
+                  }}
                 >
                   Close
                 </button>

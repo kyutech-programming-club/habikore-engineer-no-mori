@@ -2,9 +2,15 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
 import Modal from "./Modal";
-import { openState, userState } from "../atom/atoms";
+import {
+  cardsState,
+  clickedImageState,
+  indexState,
+  openState,
+  userState,
+} from "../atom/atoms";
 
-type Card = {
+export type Card = {
   index: number;
   url: string;
   x: number;
@@ -23,22 +29,22 @@ export type User = {
 
 const Canvas: React.VFC = () => {
   // すべてのステッカーの配列
-  const [cards, setCards] = useState<Card[]>([]);
+  const [cards, setCards] = useRecoilState<Card[]>(cardsState);
   // 追加するカードのインデックスをインクリメントする関数
-  const [initialIndex, setInitialIndex] = useState(0);
+  const [initialIndex, setInitialIndex] = useRecoilState(indexState);
   // カードを追加する関数
-  const addCard = (url: string) => {
-    setCards([
-      ...cards,
-      {
-        index: initialIndex,
-        url,
-        x: Math.floor(Math.random() * (200 - 80) + 80),
-        y: Math.floor(Math.random() * (200 - 80) + 80),
-      },
-    ]);
-    setInitialIndex(initialIndex + 1);
-  };
+  // const addCard = (url: string) => {
+  //   setCards([
+  //     ...cards,
+  //     {
+  //       index: initialIndex,
+  //       url,
+  //       x: Math.floor(Math.random() * (200 - 80) + 80),
+  //       y: Math.floor(Math.random() * (200 - 80) + 80),
+  //     },
+  //   ]);
+  //   setInitialIndex(initialIndex + 1);
+  // };
   // 特定番目のカードの座標を更新する
   const update = (index: number, x: number, y: number) => {
     const specificCard = cards[index];
@@ -50,11 +56,9 @@ const Canvas: React.VFC = () => {
   const [trigger, setTrigger] = useState(0);
 
   const [showModal, setShowModal] = useRecoilState(openState);
-  const toggle = () => {};
 
   const [user, setUser] = useRecoilState(userState);
-
-  console.log(showModal);
+  const [image, setImage] = useRecoilState(clickedImageState);
 
   return (
     <div
@@ -73,7 +77,7 @@ const Canvas: React.VFC = () => {
       }}
       onDragOver={(e) => e.preventDefault()} // enable onDrop event
     >
-      <button onClick={() => addCard("ahiahi")}>Add card!</button>
+      {/* <button onClick={() => addCard("ahiahi")}>Add card!</button> */}
       <div>
         {cards.map((card) => (
           <div
@@ -89,7 +93,7 @@ const Canvas: React.VFC = () => {
             }}
             draggable={true}
           >
-            <Image src="/bird.png" alt="bird" width={128} height={128} />
+            <Image src={card.url} alt="bird" width={128} height={128} />
           </div>
         ))}
       </div>
