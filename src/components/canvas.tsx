@@ -63,10 +63,10 @@ const Canvas: React.VFC = () => {
   return (
     <div>
       <div
-        className="h-screen w-screen"
+        className="w-96 h-96"
         style={{
           position: "relative",
-          backgroundImage: "url(/sougen.jpg)",
+          backgroundImage: "url(/tree5.png)",
         }}
         onDrop={(e) => {
           update(draggingIndex, e.clientX, e.clientY);
