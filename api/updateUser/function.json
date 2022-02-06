@@ -26,7 +26,6 @@
       "partitionKey": "{Query.partition}"
     },
     {
-    
     "name": "newuser",
     "type": "cosmosDB",
     "databaseName": "HabimoriDB",
@@ -35,10 +34,5 @@
     "connectionStringSetting": "CosmosDBConnection",
     "direction": "out"
     }
-
-
-
   ]
-
-  
 }
